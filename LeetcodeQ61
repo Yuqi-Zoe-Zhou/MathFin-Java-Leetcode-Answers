@@ -1,0 +1,35 @@
+public class ListNode {
+    int val;
+    ListNode next;
+    ListNode() {}
+    ListNode(int val) { this.val = val; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        // check whether the head node is null
+        if (head == null) {
+            return null;
+        }
+        
+        // find the size of the linked list and the old tail, and link it to the head
+        ListNode old_tail = head;
+        int i;
+        for(i = 1; old_tail.next != null; i++){
+            old_tail = old_tail.next;
+        }
+        old_tail.next = head;
+        
+        // find new tail and new head
+        ListNode new_tail = head;
+        for(int j = 0; j < i - k % i - 1; j++)
+            new_tail = new_tail.next;
+        ListNode new_head = new_tail.next;
+        
+        // break the linked list
+        new_tail.next = null;
+        
+        return new_head;       
+    }
+}
