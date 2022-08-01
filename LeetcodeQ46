@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> output = new LinkedList();
+        
+        ArrayList<Integer> numsList = new ArrayList<Integer>();
+        for(int num: nums){
+            numsList.add(num);
+        }
+        
+        int numSize = nums.length;
+        helper(numSize, numsList, output, 0);
+        return output;                
+    }
+    
+    public void helper(int numsSize, ArrayList<Integer> nums, List<List<Integer>> output, int start){
+        if (start == numsSize){
+            output.add(new ArrayList<Integer>(nums));
+        }
+        
+        for(int i = start; i < numsSize; i++){
+            Collections.swap(nums, start, i);
+            helper(numsSize, nums, output, start+1);
+            Collections.swap(nums, start, i);            
+        }
+    }
+}
